@@ -7,17 +7,11 @@ body {
 
 /** HEADER **/
 #header-nav {
-  background-color: #f6b319;
+  background-color: gray;
   border-radius: 0;
   border: 0;
 }
 
-#logo-img {
-  background: url('../images/restaurant-logo_large.png') no-repeat;
-  width: 150px;
-  height: 150px;
-  margin: 10px 15px 10px 0;
-}
 .hovername{
   height: 700px;
 }
@@ -28,7 +22,7 @@ body {
 
 .navbar-brand h1 { /* Restaurant name */
   font-family: 'Lora', serif;
-  color: #557c3e;
+  color: white;
   font-size: 1.5em;
   text-transform: uppercase;
   font-weight: bold;
@@ -37,6 +31,22 @@ body {
   margin-bottom: 0;
   line-height: .75;
 }
+
+ h2 { /* Restaurant name */
+  font-family: 'Comic Sans', serif;
+  color: white;
+  font-size: 2em;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #222;
+  line-height: .75;
+}
+
+.food-div
+{
+  border-color:white;
+  border-width: 100px;
+}
+
 .navbar-brand a:hover, .navbar-brand a:focus {
   text-decoration: none;
 }
@@ -54,7 +64,7 @@ body {
   margin-top: 10px;
 }
 #nav-list a {
-  color: #951C49;
+  color: white;
   text-align: center;
 }
 #nav-list a:hover {
@@ -65,17 +75,7 @@ body {
 }
 
 #menu-title {
-  text-align: center;
-  color: black ;
-}
-#phone a { /* Phone number */
-  text-align: right;
-  padding-bottom: 0;
-}
-#phone div { /* We Deliver */
-  color: #557c3e;
-  text-align: right;
-  padding-right: 15px;
+  color: white;
 }
 
 .navbar-header button.navbar-toggle, .navbar-header .icon-bar {
