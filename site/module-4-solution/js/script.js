@@ -76,7 +76,7 @@ else
 //   // helloSpeaker.xxxx
 // }
 
-
+//Speak Simple 
 var mapSimpleSpeak = function(x) { 
   var firstLetter =  x.charAt(0).toLowerCase();
   if(firstLetter == 'j') 
@@ -94,4 +94,26 @@ var mappedNames = names.map(mapSimpleSpeak);
 for (var x in mappedNames)
   console.log(mappedNames[x]);
 
+
+//Optional (bonus) using reduce
+var initialValue = {hello: [], bye: []};
+mappedNames.reduce(function (acc, obj)
+{
+  if(obj.charAt(0).toLowerCase() == 'h')
+  {
+    acc.hello.push(obj);
+    return acc;
+  }
+  else
+  {
+    acc.bye.push(obj);
+    return acc;
+  }
+},initialValue )
+
+for (var x in initialValue.hello)
+  console.log(initialValue.hello[x]);
+
+for (var x in initialValue.bye)
+  console.log(initialValue.bye[x]);
 })();
