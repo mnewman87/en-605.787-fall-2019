@@ -130,8 +130,7 @@ function buildAndShowHomeHTML (categories) {
     false); // False here because we are getting just regular HTML from the server, so no need to process JSON.
 }
 
-// Builds HTML for the home page based on categories array
-// returned from the server.
+//Build the About page
 function buildAndShowAboutHTML () {
 
   // Load home snippet page
@@ -176,10 +175,11 @@ function chooseRandomCategory (categories) {
   return categories[randomArrayIndex];
 }
 
+//get random number between 1 and 5
 function getRandomRating() {
   var min = 1;
   var max = 5;
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+  return Math.floor(Math.random() * (max - min + 1)) + min; 
 }
 
 // Load the menu categories view
