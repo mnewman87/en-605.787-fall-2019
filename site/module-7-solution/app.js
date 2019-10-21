@@ -26,49 +26,48 @@
     function AlreadyBoughtController(ShoppingListCheckOffService) {
       var alreadyBought = this;
       alreadyBought.boughtItems = ShoppingListCheckOffService.getBoughtItems();
-      alreadyBought.calculateCost = function MoneyFilter(input) {
+      alreadyBought.calculateCost = function calculationFilter(input) {
         input = input.pricePerItem * input.quantity;
         return input;
       };
     }
 
     function ShoppingListCheckOffService() {
+      
       var service = this;
+      var items = [];
+      var boughtItems = [];
 
-  // List of shopping items
-  var items = [];
-  var boughtItems = [];
+      service.addItem = function (itemName, quantity, pricePerItem) {
+        var item = {
+          name: itemName,
+          quantity: quantity,
+          pricePerItem: pricePerItem
+        };
+        items.push(item);
+      };
 
-  service.addItem = function (itemName, quantity, pricePerItem) {
-    var item = {
-      name: itemName,
-      quantity: quantity,
-      pricePerItem: pricePerItem
+      service.removeItem = function (itemIndex) {
+        items.splice(itemIndex, 1);
+      };
+
+      service.boughtItem = function (itemIndex) {
+       var boughtItem = {
+        name: items[itemIndex].name,
+        quantity: items[itemIndex].quantity,
+        pricePerItem:  items[itemIndex].pricePerItem
+      };
+      boughtItems.push(boughtItem);
+      items.splice(itemIndex, 1);
     };
-    items.push(item);
-  };
 
-  service.removeItem = function (itemIdex) {
-    items.splice(itemIdex, 1);
-  };
+    service.getItems = function () {
+      return items;
+    };
 
-  service.boughtItem = function (itemIdex) {
-   var boughtItem = {
-    name: items[itemIdex].name,
-    quantity: items[itemIdex].quantity,
-    pricePerItem:  items[itemIdex].pricePerItem
-  };
-  boughtItems.push(boughtItem);
-  items.splice(itemIdex, 1);
-};
-
-service.getItems = function () {
-  return items;
-};
-
-service.getBoughtItems = function () {
-  return boughtItems;
-};
-}
+    service.getBoughtItems = function () {
+      return boughtItems;
+    };
+  }
 
 })();
