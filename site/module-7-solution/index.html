@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html ng-app='ShoppingListCheckOff'>
-  <head>
-    <meta charset="utf-8">
-<script src="angular.min.js"></script>
-    <script src="app.js"></script>
-    <style> body { font-size: 1.2em; }</style>
-    <title>Filters</title>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <script src="angular.min.js"></script>
+  <script src="app.js"></script>
+  <style> body { font-size: 1.2em; }</style>
+  <title>Filters</title>
+</head>
+<body>
   <h2>To Buy</h2>
 
-    <div ng-controller='ToBuyController as toBuy'>
+  <div ng-controller='ToBuyController as toBuy'>
+    <div ng-if="!toBuy.items.length > 0">
+      <h3> Everything is bought! </h3>
+    </div>
+    <div ng-if="toBuy.items.length > 0">
       <ol>
-         <li ng-repeat="item in toBuy.items">
-          {{ item.quantity }} of {{ item.name }}
-          <button ng-click="toBuy.boughtItem($index);">Bought</button>
-        </li>
-      </ol>
-      </div>
-
-      <div ng-controller='AlreadyBoughtController as alreadyBought'>
-         <ol>
-        <li ng-repeat="item in alreadyBought.items">
-          {{ item.quantity }} of {{ item.name }}
-        </li>
-      </ol>
-    </div>
-    </div>
+       <li ng-repeat="item in toBuy.items">
+        {{ item.quantity }} of {{ item.name }}
+        <button ng-click="toBuy.boughtItem($index);">Bought</button>
+      </li>
+    </ol>
+  </div>
+</div>
+<h2>Bought</h2>
+<div ng-controller='AlreadyBoughtController as alreadyBought'>
+  <div ng-if="!alreadyBought.boughtItems.length > 0">
+   <h3>Nothing bought yet</h3>
+ </div>
+   <div ng-if="alreadyBought.boughtItems.length > 0">
+     <ol>
+      <li ng-repeat="item in alreadyBought.boughtItems">
+        {{ item.quantity }} of {{ item.name }} for total price of: {{ alreadyBought.calculateCost(item) | currency : "$$$$$$" : 2 }}
+      </li>
+    </ol>
+  </div>
+</div>
+</div>
 </body>
 </html>

@@ -1,45 +1,49 @@
 (function () {
-'use strict';
+  'use strict';
 
-angular.module('ShoppingListCheckOff', [])
-.controller('ToBuyController', ToBuyController)
-.controller('AlreadyBoughtController', AlreadyBoughtController)
-.service('ShoppingListService', ShoppingListService);
+  angular.module('ShoppingListCheckOff', [])
+  .controller('ToBuyController', ToBuyController)
+  .controller('AlreadyBoughtController', AlreadyBoughtController)
+  .service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
-ToBuyController.$inject = ['ShoppingListService'];
-function ToBuyController(ShoppingListService) {
-  var toBuy = this;
+  ToBuyController.$inject = ['ShoppingListCheckOffService'];
+  function ToBuyController(ShoppingListCheckOffService) {
+    var toBuy = this;
 
-   
-    ShoppingListService.addItem("Bunch of Grapes", 1);
-    ShoppingListService.addItem("Bananas", 6);
-    ShoppingListService.addItem("Cookies", 10);
-    ShoppingListService.addItem("Donuts", 12);
-    ShoppingListService.addItem("Pizza", 1);
+    ShoppingListCheckOffService.addItem("Bunch of Grapes", 1, 5);
+    ShoppingListCheckOffService.addItem("Bananas", 6, 8);
+    ShoppingListCheckOffService.addItem("Cookies", 10, 1);
+    ShoppingListCheckOffService.addItem("Donuts", 12, 3);
+    ShoppingListCheckOffService.addItem("Pizza", 1, 2);
 
-    toBuy.items = ShoppingListService.getItems();
+    toBuy.items = ShoppingListCheckOffService.getItems();
 
-      toBuy.boughtItem = function (itemIndex) {
-    ShoppingListService.boughtItem(itemIndex);};
-}
+    toBuy.boughtItem = function (itemIndex) {
+      ShoppingListCheckOffService.boughtItem(itemIndex);};
+    }
 
-AlreadyBoughtController.$inject = ['ShoppingListService'];
-function AlreadyBoughtController(ShoppingListService) {
-  var alreadyBought = this;
-  alreadyBought.items = ShoppingListService.getBoughtItems();
-}
+    AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+    function AlreadyBoughtController(ShoppingListCheckOffService) {
+      var alreadyBought = this;
+      alreadyBought.boughtItems = ShoppingListCheckOffService.getBoughtItems();
+      alreadyBought.calculateCost = function MoneyFilter(input) {
+        input = input.pricePerItem * input.quantity;
+        return input;
+      };
+    }
 
-function ShoppingListService() {
-  var service = this;
+    function ShoppingListCheckOffService() {
+      var service = this;
 
   // List of shopping items
   var items = [];
-var boughtItems = [];
+  var boughtItems = [];
 
-  service.addItem = function (itemName, quantity) {
+  service.addItem = function (itemName, quantity, pricePerItem) {
     var item = {
       name: itemName,
-      quantity: quantity
+      quantity: quantity,
+      pricePerItem: pricePerItem
     };
     items.push(item);
   };
@@ -48,17 +52,23 @@ var boughtItems = [];
     items.splice(itemIdex, 1);
   };
 
-    service.boughtItem = function (itemIdex) {
-      boughtItems.push(items[itemIdex].name, items[itemIdex].quantity);
-    items.splice(itemIdex, 1);
+  service.boughtItem = function (itemIdex) {
+   var boughtItem = {
+    name: items[itemIdex].name,
+    quantity: items[itemIdex].quantity,
+    pricePerItem:  items[itemIdex].pricePerItem
   };
+  boughtItems.push(boughtItem);
+  items.splice(itemIdex, 1);
+};
 
-  service.getItems = function () {
-    return items;
-  };
+service.getItems = function () {
+  return items;
+};
 
-   service.getBoughtItems = function () {
-    return boughtItems;
-  };
+service.getBoughtItems = function () {
+  return boughtItems;
+};
 }
+
 })();
