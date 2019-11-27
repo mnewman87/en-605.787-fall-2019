@@ -1,40 +1,41 @@
 (function () {
-"use strict";
+  "use strict";
 
-angular.module('public')
-.controller('SignupController', SignupController);
+  angular.module('public')
+  .controller('SignupController', SignupController);
 
   SignupController.$inject = ['SignupService'];
-function SignupController(SignupService) {
-  var reg = this;
+  function SignupController(SignupService) {
+    var reg = this;
 
-  reg.submit = function () {
-  SignupService.clearRegistration();
+    reg.validate = function(shortname)
+    {
+     var promise  = SignupService.validateMenuItem(shortname);
+     promise.then(function (response)
+     {
+      reg.valid = response;
+      return reg.valid ;
+    });
+   };
 
-  var promise  = SignupService.validateMenuItem(reg.user.favoriteDish);
-promise.then(function (response)
-{
-reg.valid = response;
-if(reg.valid)
-{
-    SignupService.addRegistration( reg.user.firstname,
-    reg.user.lastname,
-    reg.user.email,
-    reg.user.phone,
-    reg.user.favoriteDish);
+   reg.submit = function () {
+    SignupService.clearRegistration();
 
-    reg.saved = true;
+    var promise  = SignupService.validateMenuItem(reg.user.favoriteDish);
+    promise.then(function (response)
+    {
+      reg.valid = response;
+      if(reg.valid)
+      {
+        SignupService.addRegistration( reg.user.firstname,
+          reg.user.lastname,
+          reg.user.email,
+          reg.user.phone,
+          reg.user.favoriteDish);
+
+        reg.saved = true;
+      }
+    });
+};
 }
-});
-
-
-  	//change this when the sevrver is setup
-//Check if the menu item short name is valid
-//return error if not
-
-//Otherwise, save data
-  };
-}
-
-
 })();
