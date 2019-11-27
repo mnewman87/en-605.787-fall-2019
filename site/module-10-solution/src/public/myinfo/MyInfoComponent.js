@@ -3,9 +3,9 @@
 
 	angular.module('public')
 	.component('myinfo', {
-		templateUrl: 'myInfo.html',
+		templateUrl: 'src/public/myinfo/myinfo.html',
 		bindings: {
-			info: '<',
+			info: '<'
 		}
 	});
 })();

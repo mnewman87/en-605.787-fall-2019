@@ -1,8 +1,16 @@
 
-      <div >
-      Username: {{ info.firstName}} <br>
-      Email: {{ info.email}} <br>
-      Phone: {{ info.phone }}
+    <div ng-if="myinfo.info.registered">
+      First Name: {{ myinfo.info.firstName}} <br>
+      Last Name: {{ myinfo.info.firstName}} <br>
+      Email: {{  myinfo.info.email}} <br>
+      Phone: {{  myinfo.info.phone }} <br>
+      Short Name: {{ myinfo.info.shortName}} <br>
+       <img class="img-responsive" width="250" height="150" ng-src="{{myinfo.info.imagePath}}"/>
+       <h3 >{{myinfo.info.name}}</h3>
+      <p >{{myinfo.info.description}}</p>
     </div>
 
- 
+   <div  ng-if="!myinfo.info.registered">
+You have not been registered. 
+<a ui-sref="signup">Sign up now!</a>
+   </div>

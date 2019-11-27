@@ -34,7 +34,8 @@
   .state('myinfo', {
     url: '/myinfo',
     templateUrl: '/src/public/myinfo/myinfo.html',
-    controller: 'MyInfoController as myinfo',
+    controller: 'MyInfoController',
+    controllerAs: 'myinfo',
      resolve: {
      info: ['SignupService', function (SignupService) {
         return SignupService.getRegistration();

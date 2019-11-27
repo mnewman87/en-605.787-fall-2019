@@ -9,13 +9,23 @@ function SignupController(SignupService) {
   var reg = this;
 
   reg.submit = function () {
-  	reg.saved = true;
-  	reg.valid = true; 
-  	SignupService.addRegistration( reg.user.firstname,
+  SignupService.clearRegistration();
+
+  var promise  = SignupService.validateMenuItem(reg.user.favoriteDish);
+promise.then(function (response)
+{
+reg.valid = response;
+if(reg.valid)
+{
+    SignupService.addRegistration( reg.user.firstname,
     reg.user.lastname,
     reg.user.email,
     reg.user.phone,
     reg.user.favoriteDish);
+
+    reg.saved = true;
+}
+});
 
 
   	//change this when the sevrver is setup
