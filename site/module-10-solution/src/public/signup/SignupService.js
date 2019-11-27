@@ -1,23 +1,29 @@
 (function () {
   'use strict';
 
-  angular.module('data')
+  angular.module('public')
   .service('SignupService', SignupService);
   
   SignupService.$inject =['$http']
   function SignupService($http) {
 
-    var service = this;
+    var suservice = this;
 
 var signupInfo;
   //  var items= [];
-  service.addRegistration = function(firstName, lastName, email, phone, menuItem)
+  suservice.addRegistration = function(firstName, lastName, email, phone, menuItem)
   {
-    signupInfo.firstName = firstName;
-    signupInfo.lastName = lastName;
-    signupInfo.email = email;
-    signupInfo.phone = phone;
-    signupInfo.menuItem = menuItem;
+   signupInfo = {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    phone: phone,
+    menuItem: menuItem }
+  }
+
+   suservice.getRegistration = function()
+  {
+    return signupInfo;
   }
 
     // service.getItemsForCategory = function (categoryShortName) {

@@ -11,6 +11,11 @@ function SignupController(SignupService) {
   reg.submit = function () {
   	reg.saved = true;
   	reg.valid = true; 
+  	SignupService.addRegistration( reg.user.firstname,
+    reg.user.lastname,
+    reg.user.email,
+    reg.user.phone,
+    reg.user.favoriteDish);
 
 
   	//change this when the sevrver is setup

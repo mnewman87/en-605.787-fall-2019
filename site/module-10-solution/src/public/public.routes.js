@@ -33,18 +33,25 @@
 
   .state('myinfo', {
     url: '/myinfo',
-    templateUrl: '/src/public/info/myinfo.html',
+    templateUrl: '/src/public/myinfo/myinfo.html',
     controller: 'MyInfoController as myinfo',
      resolve: {
-      menuCategories: ['SignupService', function (SignupService) {
-        return MenuService.getCategories();
+     info: ['SignupService', function (SignupService) {
+        return SignupService.getRegistration();
       }]
     }
   })
   .state('signup', {
     url: '/signup',
     templateUrl: '/src/public/signup/signup.html',
-    controller: 'SignupController as signup'
+    controller: 'SignupController',
+    controllerAs: 'reg',
+     resolve: {
+      reg: ['SignupService', function (SignupService) {
+        return SignupService;
+      }]
+    }
+
   })
 
   .state('public.menuitems', {
